@@ -1,0 +1,38 @@
+apiVersion: apps.libre.sh/v1alpha1
+kind: Decidim
+metadata:
+  name: {{ required .Values.global.name }}
+  namespace: {{ required .Values.global.namespace }}
+spec:
+  additionalHosts: {{ toYaml .Values.decidim.additionalHosts | indent 4 }}
+  admin:
+    email: {{ .Values.decidim.admin.email | quote }}
+  availableAuthorizations: {{ toYaml .Values.decidim.availableAuthorizations | indent 4 }}
+  envFrom:
+    - secretRef:
+        name: {{ .Values.global.name }}-custom-env
+  fileUploadSettings:
+    allowed_content_types:
+      admin: {{ toYaml .Values.decidim.fileUploadSettings.allowed_content_types.admin | indent 8 }}
+      default: {{ toYaml .Values.decidim.fileUploadSettings.allowed_content_types.default | indent 8 }}
+    allowed_file_extensions:
+      admin: {{ toYaml .Values.decidim.fileUploadSettings.allowed_file_extensions.admin | indent 8 }}
+      default: {{ toYaml .Values.decidim.fileUploadSettings.allowed_file_extensions.default | indent 8 }}
+      image: {{ toYaml .Values.decidim.fileUploadSettings.allowed_file_extensions.image | indent 8 }}
+    maximum_file_size:
+      avatar: {{ .Values.decidim.fileUploadSettings.maximum_file_size.avatar | quote }}
+      default: {{ .Values.decidim.fileUploadSettings.maximum_file_size.default | quote }}
+  forceUsersToAuthenticateBeforeAccessOrganization: {{ .Values.decidim.forceUsersToAuthenticateBeforeAccessOrganization | quote }}
+  host: {{ required .Values.decidim.host | quote }}
+  image: {{ .Values.global.registry | quote }}/{{ .Values.global.image | quote }}
+  locale:
+    available: {{ toYaml .Values.decidim.locale.available | indent 4 }}
+    default: {{ .Values.decidim.locale.default | quote }}
+  organization:
+    admin:
+      email: {{ .Values.decidim.organization.admin.email | quote }}
+      name: {{ .Values.decidim.organization.admin.name | quote }}
+      nickname: {{ .Values.decidim.organization.admin.nickname | quote }}
+    id: 1
+  timeZone: Amsterdam
+  usersRegistrationMode: 0

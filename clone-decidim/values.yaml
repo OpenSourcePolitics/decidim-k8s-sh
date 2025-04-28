@@ -1,0 +1,149 @@
+_shared:
+  origin: &origin "decidim-app"
+  target: &target "clone"
+  namespace: &namespace "clone"
+
+global:
+  name: *target
+  namespace: *namespace
+  registry: "rg.fr-par.scw.cloud/decidim-app"
+  image: "decidim-app:v2.8.1"
+
+decidim:
+  env:
+    CURRENCY: ""
+    DECIDIM_HALF_SIGNUP_SHOW_TOS_PAGE_AFTER_SIGNUP: ""
+    DECIDIM_SESSION_TIMEOUT: ""
+    ENABLE_RACK_ATTACK: ""
+    GEOCODER_LOOKUP_API_KEY: ""
+    HALF_SIGNUP_SKIP_CSRF: ""
+    HELP_SCOUT_BEACON_ID_MAIN: ""
+    OMNIAUTH_SETTINGS_FACEBOOK_APP_ID: ""
+    OMNIAUTH_SETTINGS_FACEBOOK_APP_SECRET: ""
+    OMNIAUTH_SETTINGS_FACEBOOK_ENABLED: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_CLIENT_ID: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_CLIENT_SECRET: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_ENABLED: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_BUTTON_PATH: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_CLIENT_ID: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_CLIENT_SECRET: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_ENABLED: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_ICON_PATH: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_PROVIDER_NAME: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_PROFILE_SITE: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_SITE_URL: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_BUTTON_PATH: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_CLIENT_ID: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_CLIENT_SECRET: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_ENABLED: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_ICON_PATH: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_PROVIDER_NAME: ""
+    OMNIAUTH_SETTINGS_FRANCE_CONNECT_UID_SITE: ""
+    OMNIAUTH_SETTINGS_GOOGLE_OAUTH2_CLIENT_ID: ""
+    OMNIAUTH_SETTINGS_GOOGLE_OAUTH2_CLIENT_SECRET: ""
+    OMNIAUTH_SETTINGS_GOOGLE_OAUTH2_ENABLED: ""
+    OMNIAUTH_SETTINGS_PUBLIK_CLIENT_ID: ""
+    OMNIAUTH_SETTINGS_PUBLIK_CLIENT_SECRET: ""
+    OMNIAUTH_SETTINGS_PUBLIK_ENABLED: ""
+    OMNIAUTH_SETTINGS_PUBLIK_SITE_URL: ""
+    OMNIAUTH_SETTINGS_TWITTER_API_KEY: ""
+    OMNIAUTH_SETTINGS_TWITTER_API_SECRET: ""
+    OMNIAUTH_SETTINGS_TWITTER_ENABLED: ""
+    PERFORM_BLOCK_USER: ""
+    RAILS_ENV: ""
+    RAILS_LOG_LEVEL: ""
+    SMS_GATEWAY_MB_ACCOUNT_ID: ""
+    SMS_GATEWAY_MB_API_KEY: ""
+    SMS_GATEWAY_OADC: ""
+    SMS_GATEWAY_SERVICE:
+    SMS_GATEWAY_URL: ""
+    SMTP_ADDRESS: ""
+    SMTP_FROM: ""
+    SMTP_FROM_EMAIL: ""
+    SMTP_FROM_LABEL: ""
+    SMTP_PASSWORD: ""
+    SMTP_PORT: ""
+    SMTP_USER_NAME: ""
+    SORT_PROCESSES_BY_DATE: ""
+    SPAM_DETECTION_API_AUTH_TOKEN: ""
+    SPAM_DETECTION_API_URL: ""
+  additionalHosts: []
+  admin:
+      email: ""
+  availableAuthorizations:
+      - phone_authorization_handler
+      - osp_authorization_handler
+      - sms
+  fileUploadSettings:
+    allowed_content_types:
+      admin:
+        - image/*
+        - application/vnd.oasis.opendocument
+        - application/vnd.ms-*
+        - application/msword
+        - application/vnd.ms-word
+        - application/vnd.openxmlformats-officedocument
+        - application/pdf
+        - application/rtf
+        - text/plain
+      default:
+        - image/*
+        - application/pdf
+        - application/rtf
+        - text/plain
+    allowed_file_extensions:
+      admin:
+        - jpg
+        - jpeg
+        - gif
+        - png
+        - bmp
+        - pdf
+        - doc
+        - docx
+        - xls
+        - xlsx
+        - ppt
+        - ppx
+        - rtf
+        - txt
+        - odt
+        - ott
+        - odf
+        - otg
+        - ods
+        - ots
+      default:
+        - jpg
+        - jpeg
+        - gif
+        - png
+        - bmp
+        - pdf
+        - rtf
+        - txt
+      image:
+        - jpg
+        - jpeg
+        - gif
+        - png
+        - bmp
+        - ico
+    maximum_file_size:
+      avatar: 5
+      default: 10
+  forceUsersToAuthenticateBeforeAccessOrganization: false
+  host: clone.k8s.osp.cat
+  image: rg.fr-par.scw.cloud/decidim-app/decidim-app:v2.8.1
+  locale:
+    available:
+      - fr
+    default: fr
+  organization:
+    admin:
+      email: ""
+      name: ""
+      nickname: ""
+    id: 1
+  timeZone: Amsterdam
+  usersRegistrationMode: 0

@@ -1,0 +1,9 @@
+apiVersion: core.libre.sh/v1alpha1
+kind: Bucket
+metadata:
+  name: {{ .Values.global.name }}--de
+  namespace: {{ .Values.global.namespace }}
+spec:
+  policy:
+    preset: private
+  provider: data

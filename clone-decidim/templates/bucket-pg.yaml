@@ -1,0 +1,17 @@
+apiVersion: core.libre.sh/v1alpha1
+kind: Bucket
+metadata:
+  name: {{ .Values.global.name }}--de-pg
+  namespace: {{ .Values.global.namespace }}
+spec:
+  lifecycleRules:
+    - expiration:
+        expiredObjectDeleteMarker: true
+      id: PostgresController
+      noncurrentVersionExpiration:
+        noncurrentDays: 2
+      status: Enabled
+  policy:
+    preset: private
+  provider: pitr
+  versioned: true
