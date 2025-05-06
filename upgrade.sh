@@ -99,7 +99,9 @@ success "[*] Host: $HOST";
 
 ask_confirmation_or_exit "Are you sure you want to apply configuration on $NAMESPACE/$APP_NAME ? (y/n) ";
 warning "> kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE"
-kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE
+
+#
+#kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE
 
 success "[*][4/6] Waiting for Decidim $APP_NAME to be running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
 
@@ -116,7 +118,7 @@ while true; do
 
     break
   fi
-  if [ $LIMIT_ATTEMPTS -ge 6 ]; then
+  if [ $LIMIT_ATTEMPTS -ge 24 ]; then
     error "error: Decidim $APP_NAME is not running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
     exit 1
   fi
