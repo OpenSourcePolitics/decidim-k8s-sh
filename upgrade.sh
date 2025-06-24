@@ -101,7 +101,7 @@ ask_confirmation_or_exit "Are you sure you want to apply configuration on $NAMES
 warning "> kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE"
 
 #
-#kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE
+kubectl apply -f $APP_NAME-decidim.yaml -n $NAMESPACE
 
 success "[*][4/6] Waiting for Decidim $APP_NAME to be running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
 
