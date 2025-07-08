@@ -11,6 +11,7 @@ This repository is destined to manage Decidim applications on Kubernetes for int
 - Kubectl
 
 ### Clone app
+✅ Ready for production use.
 
 Run clone script :
 ```bash
@@ -20,6 +21,7 @@ Run clone script :
 Follow the instructions to create a new app in the same namespace.
 
 ### Suspend script
+✅ Ready for production use.
 
 Script `suspend.sh` is used to suspend an app in a namespace. It suspends the Decidim object, add a label `libre.sh/delete_date`to the Decidim object, removes the dedicated ingress and stops App, Sidekiq, Memcached Deployment objects.
 
@@ -36,5 +38,12 @@ WIP
 WIP
 
 ### Upgrade app 0.29
+✅ Ready for production use.
 
-WIP
+Script `upgrade_029.sh` is used to upgrade a Decidim app to version 0.29. It performs a simple upgrade of the app image to the specified version, and edit the secrets according to the expectations. Moreover, it gives some indications about next command to run. 
+
+This script is only useful for the first upgrade in 0.29, then it is recommended to use the default ugprade script `upgrade.sh`.
+
+```bash
+  ./upgrade_029.sh <namespace> <app> <image_docker:tag>
+```

@@ -130,7 +130,6 @@ APP_NAME: $APP_NAME | Endpoint:
 > explanation: ALIAS_NAME/NAMESPACE-APP_NAME--de
 "
 
-
 ask_confirmation "Are the buckets successfully mirrored ? (y/n)";
 success "[*] Buckets mirrored successfully";
 success "[*][5/6] Create Postgres objects and Decidim";
@@ -147,13 +146,6 @@ warning "|
 Create your Decidim:
 kubectl create -n $NAMESPACE -f $CLONE_NAME-decidim.yaml";
 
-
-#ask_confirmation "Is the PG Up and Running ? (y/n)";
-#execute "kubectl create -n $NAMESPACE -f $CLONE_NAME--de-secret.yaml";
-#execute "kubectl create -n $NAMESPACE -f $CLONE_NAME--custom-env-secret.yaml";
-
-#execute "kubectl create -n $NAMESPACE -f $CLONE_NAME-decidim.yaml";
-
 success "[*][6/6] Edit the Organization host directly in database";
 warning "You need to edit the Organization host directly in database";
 warning "|
@@ -168,9 +160,6 @@ bundle exec rake decidim:upgrade:clean:clean_deleted_users &&
 bundle exec rake decidim_proposals:upgrade:set_categories &&
 bundle exec rake decidim:upgrade:attachments_cleanup";
 
-# execute "kubectl exec -it $APP_NAME--de-0 -n $NAMESPACE -- bash -c 'psql -U postgres -d DATABASE_NAME -c \"UPDATE decidim_organizations SET host = '$CLONE_NAME.k8s.osp.cat' WHERE host = '$APP_NAME.k8s.osp.cat';\"'";
+success "Done."
 
-success "Done.";
-# kubectl create -n $NAMESPACE -f FILE
-# kubectl create -n $NAMESPACE -f FILE
 

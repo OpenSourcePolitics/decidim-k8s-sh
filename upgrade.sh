@@ -26,15 +26,13 @@ function ask_confirmation() {
   done
 }
 function ask_confirmation_or_exit() {
-  while true; do
-    read -r -p "$1" response
-    if [[ "$response" =~ ^(yes|y)$ ]]; then
-      break
-    else
-      error "Process aborted by user...";
-      exit 1
-    fi
-  done
+  read -r -p "$1" response
+  if [[ "$response" =~ ^(yes|y)$ ]]; then
+    break
+  else
+    error "Process aborted by user...";
+    exit 1
+  fi
 }
 
 function notify_webhook() {
@@ -149,5 +147,3 @@ else
 fi
 
 notify_webhook $HOST
-
-exit 0
