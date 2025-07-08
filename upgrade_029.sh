@@ -51,6 +51,8 @@ echo "[x] Add STORAGE_PROVIDER to custom-env secret";
 sed -i -r "s/GEOCODER_LOOKUP_API_KEY/MAPS_API_KEY/g" $FILENAME_SECRETS
 echo "[x] Rename GEOCODER_LOOKUP_API_KEY to MAPS_API_KEY";
 
+ask_confirmation "Is the platform multi-lang ? If so add the var DECIDIM_AVAILABLE_LOCALES before migrations. (y/n) ";
+
 echo -n "New image version :"
 echo $(cat $APP_NAME-decidim.yaml | grep -E "image: $DOCKER_REGISTRY")
 sed -i '' "s/^  image: $DOCKER_REGISTRY.*/  image: $DOCKER_REGISTRY\/$IMAGE_NAME/g" $APP_NAME-decidim.yaml;
@@ -80,22 +82,26 @@ kubectl apply -f $FILENAME_DECIDIM -n $NAMESPACE
 
 echo "[x] Waiting for Decidim $APP_NAME to be running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
 
+echo -e "${YELLOW}[!] .${NC}\c"
+while true; do
+    if kubectl get decidim "$APP_NAME" -n "$NAMESPACE" -o jsonpath='{.status.conditions[*].message}' | grep "running" > /dev/null 2>&1; then
+        success "[x] Decidim $APP_NAME is now running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
+        success "[x] Cleaning up..."
 
-warning "|
-kubectl annotate decidim -n $NAMESPACE $APP_NAME decidim.libre.sh/maintenance='40'";
-warning "|
-bundle exec rake decidim_app:k8s:configure;
-bundle exec rake decidim:upgrade:content_blocks:initialize_default_content_blocks;
-bundle exec rake decidim:upgrade:clean:clean_deleted_users;
-bundle exec rake decidim_proposals:upgrade:set_categories;
-bundle exec rake decidim:upgrade:attachments_cleanup;
-bundle exec rake decidim:upgrade:fix_nickname_casing;
-bundle exec rake decidim:upgrade:clean:clean_deleted_users;
-bundle exec rake decidim:upgrade:clean:hidden_resources";
-exit 0
-watch -n 3 "kubectl get decidim $APP_NAME -n $NAMESPACE -o jsonpath='{.status.conditions[*].message}'"
-kubectl get decidim $APP_NAME -n $NAMESPACE -o jsonpath='{.status.conditions[*].message}' | grep "Running" > /dev/null 2>&1
+        warning "|
+        kubectl annotate decidim -n $NAMESPACE $APP_NAME decidim.libre.sh/maintenance='30'";
+        warning "|
+        bundle exec rake decidim_app:k8s:configure;
+        bundle exec rake decidim:upgrade:content_blocks:initialize_default_content_blocks;
+        bundle exec rake decidim:upgrade:clean:clean_deleted_users;
+        bundle exec rake decidim_proposals:upgrade:set_categories;
+        bundle exec rake decidim:upgrade:attachments_cleanup;
+        bundle exec rake decidim:upgrade:fix_nickname_casing;
+        bundle exec rake decidim:upgrade:clean:hidden_resources";
+        break;
+    else
+        echo -e "${YELLOW}.${NC}\c"
+    fi
 
-
-echo "[x] Decidim $APP_NAME is now running with the new image $DOCKER_REGISTRY/$IMAGE_NAME"
-echo "[x] Cleaning up..."
+    sleep 10
+done
