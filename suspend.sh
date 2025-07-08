@@ -36,6 +36,14 @@ function ask_confirmation() {
   done
 }
 
+if ! command -v yq &> /dev/null; then
+    error "yq could not be found. Please install yq to proceed."
+    warning "| Install yq
+> brew install yq
+> sudo apt-get install yq"
+    exit 1
+fi
+
 if [ -z "$NAMESPACE" ] || [ -z "$APP_NAME" ]; then
   error "error: Missing arguments";
   echo "Usage: $0 <namespace> <app_name>";
@@ -60,8 +68,12 @@ DELETE_LABEL_KEY="libre.sh/delete_date"
 yq eval ".metadata.labels.\"$DELETE_LABEL_KEY\" = \"$FUTURE_DATE\"" -i $FILENAME_DECIDIM
 
 warning "[ * ] Suspending Decidim $NAMESPACE/$APP_NAME";
-warning "[ * ] Removing ingress $NAMESPACE/$APP_NAME--de";
 execute "kubectl apply -f $FILENAME_DECIDIM"
+warning "[ * ] Removing ingress $NAMESPACE/$APP_NAME--de";
 execute "kubectl delete ingress $INGRESS_NAME -n $NAMESPACE";
+warning "[ * ] Removing App, Sidekiq, Memcached deployments $NAMESPACE/$APP_NAME";
+execute "kubectl delete deploy $APP_NAME--de-app -n $NAMESPACE";
+execute "kubectl delete deploy $APP_NAME--de-sidekiq -n $NAMESPACE";
+execute "kubectl delete deploy $APP_NAME--de-memcached -n $NAMESPACE";
 
 success "[ ✅  ] $NAMESPACE/$APP_NAME suspended successfully";

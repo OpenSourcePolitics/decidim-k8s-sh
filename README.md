@@ -19,6 +19,14 @@ Run clone script :
 
 Follow the instructions to create a new app in the same namespace.
 
+### Suspend script
+
+Script `suspend.sh` is used to suspend an app in a namespace. It suspends the Decidim object, add a label `libre.sh/delete_date`to the Decidim object, removes the dedicated ingress and stops App, Sidekiq, Memcached Deployment objects.
+
+```bash
+./suspend.sh <namespace> <app>
+```
+
 ### Upgrade app
 
 WIP
