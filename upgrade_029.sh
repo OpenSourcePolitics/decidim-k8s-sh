@@ -38,6 +38,13 @@ IMAGE_NAME=$3;
 FILENAME_SECRETS=$APP_NAME-custom-env.yaml;
 FILENAME_DECIDIM=$APP_NAME-decidim.yaml;
 
+if [ -z "$NAMESPACE" ] || [ -z "$APP_NAME" ] || [ -z "$IMAGE_NAME"  ]; then
+  error "error: Missing arguments";
+  echo "Usage: $0 <namespace> <app_name> <image_name>";
+  echo "Example: $0 decidim-opensourcepolitics-eu club decidim-app:v3.3.1";
+  exit 1
+fi
+
 DOCKER_REGISTRY="rg.fr-par.scw.cloud\/decidim-app";
 
 echo "[x] Exporting secrets and decidim configuration for $APP_NAME in namespace $NAMESPACE..."
