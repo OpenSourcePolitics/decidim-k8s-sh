@@ -40,7 +40,7 @@ function ask_confirmation() {
 
 if [ -z "$NAMESPACE" ] || [ -z "$APP_NAME" ] || [ -z "$CLONE_NAME" ]; then
   error "error: Missing arguments";
-  echo "Usage: $0 <namespace> <app_name> <clone_name>";
+  echo "Usage: $0 <namespace> <app_name> <name>";
   exit 1
 fi
 

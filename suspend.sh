@@ -67,6 +67,7 @@ FUTURE_DATE=$(date -v+30d -u +"%d-%m-%Y")
 DELETE_LABEL_KEY="libre.sh/delete_date"
 yq eval ".metadata.labels.\"$DELETE_LABEL_KEY\" = \"$FUTURE_DATE\"" -i $FILENAME_DECIDIM
 
+# Destroy object poddisruptionbudget
 warning "[ * ] Suspending Decidim $NAMESPACE/$APP_NAME";
 execute "kubectl apply -f $FILENAME_DECIDIM"
 warning "[ * ] Removing ingress $NAMESPACE/$APP_NAME--de";
