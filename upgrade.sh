@@ -48,6 +48,14 @@ NC='\033[0m'
 YELLOW='\033[0;33m'
 RED='\033[0;31m'
 
+if [ -z "$NAMESPACE" ] || [ -z "$APP_NAME" ] || [ -z "$IMAGE_NAME"  ]; then
+  error "error: Missing arguments";
+  echo "Usage: $0 <namespace> <app_name> <image_name>";
+  echo "Example: $0 decidim-opensourcepolitics-eu club decidim-app:v3.3.1";
+  exit 1
+fi
+
+
 if [ -f ".env" ]; then
   source .env
 else
