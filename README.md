@@ -30,8 +30,14 @@ Script `suspend.sh` is used to suspend an app in a namespace. It suspends the De
 ```
 
 ### Upgrade app
+Upgrade the Decidim version of the target Decidim
 
-WIP
+ ✅ Ready for production use.
+
+ Run clone script :
+ ```bash
+ ./upgrade.sh <namespace> <app> <image_name:tag>
+ ```
 
 ### Destroy app
 
