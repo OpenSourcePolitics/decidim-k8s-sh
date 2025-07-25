@@ -10,6 +10,16 @@ This repository is destined to manage Decidim applications on Kubernetes for int
 - Kubernetes cluster
 - Kubectl
 
+### Get Host
+✅ Ready for production use.
+
+Script `gethost.sh` retrieves Decidim informations based on the given host.
+
+```bash
+./gethost.sh <host>
+```
+
+
 ### Clone app
 ✅ Ready for production use.
 
